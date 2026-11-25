@@ -2,7 +2,7 @@ import Papa from "papaparse";
 
 export async function ladeKatalog() {
   const response = await fetch(
-    "/Schwierigkeitskatalog.csv"
+    `${import.meta.env.BASE_URL}Schwierigkeitskatalog.csv`
   );
 
   const csvText =
