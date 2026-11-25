@@ -1,0 +1,386 @@
+{
+  "AK 7/8": {
+    "maxBonusInternationaleSG": 5,
+    "sgRequirements": {
+      "1": "A",
+      "2": "A",
+      "3": "A",
+      "4": "A",
+      "5": "A",
+      "6": "A",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A",
+
+      "13": "A",
+      "14": "A",
+      "15": "A",
+      "16": "A",
+      "17": "0"
+    },
+    "difficultyMax": {
+      "A": 8,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0
+    }
+  },
+
+  "AK 9/10": {
+    "maxBonusInternationaleSG": 6,
+    "sgRequirements": {
+      "1": "A",
+      "2": "A",
+      "3": "A",
+      "4": "A",
+      "5": "A",
+      "6": "A",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A",
+
+      "13": "A",
+      "15": "A",
+      "16": "A",
+      "17": "A"
+    },
+    "difficultyMax": {
+      "A": 3,
+      "B": 4,
+      "C": 1,
+      "D": 0,
+      "E": 0
+    }
+  },
+
+  "AK 11/12": {
+    "maxBonusInternationaleSG": 7,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A",
+      "13": "A",
+      "16": "A"
+    },
+    "difficultyMax": {
+      "A": 1,
+      "B": 4,
+      "C": 3,
+      "D": 0,
+      "E": 0
+    }
+  },
+
+  "AKL 13/14": {
+    "maxBonusInternationaleSG": 7,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A",
+      "13": "A",
+      "16": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 4,
+      "C": 3,
+      "D": 1,
+      "E": 0
+    }
+  },
+
+  "AKL 15/16": {
+    "maxBonusInternationaleSG": 8,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A",
+      "13": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 3,
+      "C": 3,
+      "D": 2,
+      "E": 0
+    }
+  },
+
+  "AKL 17/18": {
+    "maxBonusInternationaleSG": 9,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 2,
+      "C": 3,
+      "D": 3,
+      "E": 0
+    }
+  },
+
+  "AKL 19+": {
+    "maxBonusInternationaleSG": 10,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 1,
+      "C": 3,
+      "D": 4,
+      "E": 0
+    }
+  },
+
+  "AKL 25+": {
+    "maxBonusInternationaleSG": 9,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 2,
+      "C": 3,
+      "D": 3,
+      "E": 0
+    }
+  },
+
+  "AKL 30+": {
+    "maxBonusInternationaleSG": 8,
+    "sgRequirements": {
+      "1": "A",
+      "2": "A",
+      "3": "A",
+      "4": "A",
+      "5": "A",
+      "6": "A",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A",
+
+      "11": "A",
+      "13": "A"
+    },
+    "difficultyMax": {
+      "A": 1,
+      "B": 3,
+      "C": 3,
+      "D": 1,
+      "E": 0
+    }
+  },
+
+  "AKL 40+": {
+    "maxBonusInternationaleSG": 7,
+    "sgRequirements": {
+      "1": "A",
+      "2": "A",
+      "3": "A",
+      "4": "A",
+      "5": "A",
+      "6": "A",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A",
+
+      "11": "A",
+      "13": "A",
+      "16": "A"
+    },
+    "difficultyMax": {
+      "A": 2,
+      "B": 4,
+      "C": 2,
+      "D": 0,
+      "E": 0
+    }
+  },
+
+  "AKB 12": {
+    "maxBonusInternationaleSG": 7,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A",
+      "12": "A",
+      "13": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 3,
+      "C": 4,
+      "D": 1,
+      "E": 0
+    }
+  },
+
+  "AKB 13/14": {
+    "maxBonusInternationaleSG": 8,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B",
+
+      "11": "A",
+      "12": "A"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 1,
+      "C": 4,
+      "D": 2,
+      "E": 1
+    }
+  },
+
+  "AKB 15/16": {
+    "maxBonusInternationaleSG": 10,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 0,
+      "C": 2,
+      "D": 3,
+      "E": 3
+    }
+  },
+
+  "AKB 17/18": {
+    "maxBonusInternationaleSG": 10,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 8
+    }
+  },
+
+  "AKB 19+": {
+    "maxBonusInternationaleSG": 10,
+    "sgRequirements": {
+      "1": "B",
+      "2": "B",
+      "3": "B",
+      "4": "B",
+      "5": "B",
+      "6": "B",
+      "7": "B",
+      "8": "B",
+      "9": "B",
+      "10": "B"
+    },
+    "difficultyMax": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 8
+    }
+  }
+}
