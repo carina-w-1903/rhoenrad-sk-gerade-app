@@ -1,5 +1,6 @@
 import SG_SK_Anforderungen
   from "../data/SG_SK_Anforderungen.json";
+import { getDifficultyCounting } from "./difficultyCounting";
 
 export function berechneWertung(
   uebungen,
@@ -138,38 +139,43 @@ export function berechneWertung(
       break;
     }
 
-    let aktuelleSchwierigkeit =
-      u.difficulty;
+    for (const aktuelleSchwierigkeit of
+      getDifficultyCounting(u)) {
+      if (wertTeile.length >= 8) {
+        break;
+      }
 
-    let index =
-      downgradeOrder.indexOf(
-        aktuelleSchwierigkeit
-      );
+      let index =
+        downgradeOrder.indexOf(
+          aktuelleSchwierigkeit
+        );
 
-    while (index < downgradeOrder.length) {
-      const ziel =
-        downgradeOrder[index];
+      if (index < 0) {
+        continue;
+      }
 
-      const limit =
-        difficultyLimits[ziel] ?? 0;
+      while (index < downgradeOrder.length) {
+        const ziel =
+          downgradeOrder[index];
 
         if (
           countAtOrAbove(ziel) <
           cumulativeLimits[ziel]
         ) {
-        difficultyCounter[ziel]++;
+          difficultyCounter[ziel]++;
 
-        wertTeile.push({
-          ...u,
-          gewerteteDifficulty: ziel,
-          gewerteterWert:
-            difficultyValues[ziel],
-        });
+          wertTeile.push({
+            ...u,
+            gewerteteDifficulty: ziel,
+            gewerteterWert:
+              difficultyValues[ziel],
+          });
 
-        break;
+          break;
+        }
+
+        index++;
       }
-
-      index++;
     }
   }
 

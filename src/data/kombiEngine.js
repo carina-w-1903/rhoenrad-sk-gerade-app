@@ -345,6 +345,7 @@ export function findeBesteZerlegung(
       {
         exercise: highest,
         countsForDifficulty: true,
+        difficultySourceExercises: [highest],
       },
       ...selectedExercises
         .filter(
@@ -354,6 +355,7 @@ export function findeBesteZerlegung(
           exercise: x,
           countsForDifficulty:
             false,
+          difficultySourceExercises: [x],
         })),
     ];
 
@@ -380,12 +382,15 @@ export function findeBesteZerlegung(
     {
       exercise: bestMatch,
       countsForDifficulty: true,
+      difficultySourceExercises:
+        matchedExercises,
     },
 
     ...remaining.map((x) => ({
       exercise: x,
       countsForDifficulty:
         false,
+      difficultySourceExercises: [x],
     })),
   ];
 

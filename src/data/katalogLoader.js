@@ -64,12 +64,18 @@ export async function ladeKatalog() {
             .filter((g) => g !== "-")
             .map((g) => Number(g));
 
+          const countsAs = String(row[16] || "")
+            .split("+")
+            .map((difficulty) => difficulty.trim())
+            .filter(Boolean);
+
           daten.push({
             id: `${row[3]}-${daten.length}`,
 
             katalogId: row[3],
 
             difficulty,
+            countsAs,
             value: wert,
 
             name: row[5],
@@ -86,8 +92,8 @@ export async function ladeKatalog() {
             part3: row[8],
             part4: row[9],
 
-            executionDeductions: row[16],
-            recognition: row[17],
+            executionDeductions: row[17],
+            recognition: row[18],
           });
         });
 

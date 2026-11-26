@@ -41,6 +41,22 @@ export default function WertungPage({
   const akRegel =
     SG_SK_Anforderungen[ak];
 
+  const verfuegbareSG = useMemo(
+    () =>
+      [
+        ...new Set(
+          katalog
+            .flatMap((uebung) => uebung.groups || [])
+            .filter(
+              (group) =>
+                Number.isInteger(group) &&
+                group > 0
+            )
+        ),
+      ].sort((a, b) => a - b),
+    [katalog]
+  );
+
   useEffect(() => {
     if (uebungen.length === 0) {
       setAktuelleBahn(1);
@@ -482,6 +498,7 @@ function handleTouchEnd(e) {
           ({
             exercise,
             countsForDifficulty,
+            difficultySourceExercises,
           }) => {
 
             const built =
@@ -490,6 +507,7 @@ function handleTouchEnd(e) {
                   exercise,
                 sourceExercises:
                   currentItems,
+                difficultySourceExercises,
                 status,
               });
 
@@ -571,6 +589,7 @@ function handleTouchEnd(e) {
             ({
               exercise,
               countsForDifficulty,
+              difficultySourceExercises,
             }) => {
 
               const built =
@@ -579,6 +598,7 @@ function handleTouchEnd(e) {
                     exercise,
                   sourceExercises:
                     currentItems,
+                  difficultySourceExercises,
                   status: "valid",
                 });
 
@@ -890,10 +910,7 @@ function handleTouchEnd(e) {
 
         <div className="manual-sg-grid">
 
-          {Array.from(
-            { length: 10 },
-            (_, i) => i + 1
-          ).map((sg) => (
+          {verfuegbareSG.map((sg) => (
             <button
               key={sg}
               className={`manual-sg-btn ${
@@ -961,7 +978,7 @@ function handleTouchEnd(e) {
       </button>
 
       <button
-        className="action-btn"
+        className="action-btn new-lane-btn"
         onClick={() => {
 
           if (currentItems.length > 0) {

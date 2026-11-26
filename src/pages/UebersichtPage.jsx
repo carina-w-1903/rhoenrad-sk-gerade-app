@@ -1,7 +1,45 @@
 import { useState } from "react";
 import { berechneWertung } from "../utils/wertung";
+import { getDifficultyCounting } from "../utils/difficultyCounting";
 import SG_SK_Anforderungen
   from "../data/SG_SK_Anforderungen.json";
+
+function normalizeBahnen(exercises) {
+  let currentBahn = 0;
+  let previousSourceBahn;
+
+  return exercises.map((exercise, index) => {
+    if (
+      index === 0 ||
+      exercise.bahn !== previousSourceBahn
+    ) {
+      currentBahn++;
+      previousSourceBahn = exercise.bahn;
+    }
+
+    return exercise.bahn === currentBahn
+      ? exercise
+      : {
+          ...exercise,
+          bahn: currentBahn,
+        };
+  });
+}
+
+const alleStrukturgruppen = [
+  ...new Set(
+    Object.values(SG_SK_Anforderungen)
+      .flatMap((regel) =>
+        Object.keys(regel.sgRequirements || {})
+          .map(Number)
+      )
+      .filter(
+        (gruppe) =>
+          Number.isInteger(gruppe) &&
+          gruppe > 0
+      )
+  ),
+].sort((a, b) => a - b);
 
 export default function UebersichtPage({
   ak,
@@ -39,38 +77,54 @@ export default function UebersichtPage({
     setSelectedIndex(null);
   }
 
-  function moveExerciseUp() {
-    if (
-      selectedIndex === null ||
-      selectedIndex === 0
-    ) {
+  function moveExercise(direction) {
+    if (selectedIndex === null) {
+      return;
+    }
+
+    const targetIndex =
+      selectedIndex + direction;
+
+    if (targetIndex < 0 || targetIndex >= uebungen.length) {
       return;
     }
 
     const neu = [...uebungen];
+    const selected = neu[selectedIndex];
+    const adjacent = neu[targetIndex];
+    const crossedBoundary =
+      selected.bahn !== adjacent.bahn;
 
-    [neu[selectedIndex - 1], neu[selectedIndex]] =
-      [neu[selectedIndex], neu[selectedIndex - 1]];
+    if (crossedBoundary) {
+      neu[selectedIndex] = {
+        ...selected,
+        bahn: adjacent.bahn,
+      };
+    } else {
+      [neu[targetIndex], neu[selectedIndex]] =
+        [neu[selectedIndex], neu[targetIndex]];
+    }
 
-    setUebungen(neu);
-    setSelectedIndex(selectedIndex - 1);
+    const normalisierteUebungen =
+      normalizeBahnen(neu);
+    const newSelectedIndex =
+      crossedBoundary
+        ? selectedIndex
+        : targetIndex;
+
+    setUebungen(normalisierteUebungen);
+    setSelectedIndex(newSelectedIndex);
+    setSelectedExercise(
+      normalisierteUebungen[newSelectedIndex]
+    );
+  }
+
+  function moveExerciseUp() {
+    moveExercise(-1);
   }
 
   function moveExerciseDown() {
-    if (
-      selectedIndex === null ||
-      selectedIndex >= uebungen.length - 1
-    ) {
-      return;
-    }
-
-    const neu = [...uebungen];
-
-    [neu[selectedIndex + 1], neu[selectedIndex]] =
-      [neu[selectedIndex], neu[selectedIndex + 1]];
-
-    setUebungen(neu);
-    setSelectedIndex(selectedIndex + 1);
+    moveExercise(1);
   }
 
   function addExercise() {
@@ -128,6 +182,26 @@ function toggleNotRecognized() {
   };
 
   setUebungen(neu);
+}
+
+function toggleStructureGroup(group) {
+  if (selectedIndex === null) {
+    return;
+  }
+
+  const neu = [...uebungen];
+  const selected = neu[selectedIndex];
+  const groups = selected.groups || [];
+
+  neu[selectedIndex] = {
+    ...selected,
+    groups: groups.includes(group)
+      ? groups.filter((item) => item !== group)
+      : [...groups, group],
+  };
+
+  setUebungen(neu);
+  setSelectedExercise(neu[selectedIndex]);
 }
 
 let uebungsNummer = 0;
@@ -228,7 +302,6 @@ let letzteBahn = null;
         </button>
 
       </div>
-      
     )}
 
   </div>
@@ -254,7 +327,47 @@ let letzteBahn = null;
 
   </div>
 
-      <div className="overview-layout">
+      <div
+        className={`overview-layout ${
+          showCorrectionTools
+            ? "overview-layout-correction"
+            : ""
+        }`}
+      >
+
+        {showCorrectionTools && (
+          <div className="overview-sg-correction">
+            <span className="overview-sg-correction-label">
+              Strukturgruppen:
+            </span>
+            <div className="overview-sg-correction-buttons">
+              {alleStrukturgruppen.map((gruppe) => {
+                const isActive = Boolean(
+                  selectedIndex !== null &&
+                    uebungen[selectedIndex]?.groups?.includes(
+                      gruppe
+                    )
+                );
+
+                return (
+                  <button
+                    key={gruppe}
+                    type="button"
+                    aria-pressed={isActive}
+                    className={`manual-sg-btn ${
+                      isActive ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      toggleStructureGroup(gruppe)
+                    }
+                  >
+                    {gruppe}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="overview-left">
 
@@ -276,6 +389,22 @@ let letzteBahn = null;
           const bahnAnzeigen =
             index === 0 || bahnWechsel;
           const bewertet = bewerteteUebungen[index] || u;
+          const existingStatus =
+            u.status === "fall"
+              ? "Sturz"
+              : u.status === "notRecognized"
+              ? "Nicht anerkannt"
+              : bewertet.status === "sgLimit"
+              ? "SG-Limit überschritten"
+              : bewertet.status === "bahnLimit"
+              ? "Max. 6 Bahnen"
+              : "";
+          const counting =
+            getDifficultyCounting(u);
+          const countingLabel =
+            counting.length > 1
+              ? counting.join(" + ")
+              : "";
           
           return (
             <>
@@ -361,15 +490,22 @@ let letzteBahn = null;
                 </span>
 
                 <span className="overview-status">
-                  {u.status === "fall"
-                    ? "Sturz"
-                    : u.status === "notRecognized"
-                    ? "Nicht anerkannt"
-                    : bewertet.status === "sgLimit"
-                    ? "SG-Limit überschritten"
-                    : bewertet.status === "bahnLimit"
-                    ? "Max. 6 Bahnen"
-                    : ""}
+                  {existingStatus && (
+                    <span>{existingStatus}</span>
+                  )}
+                  {countingLabel && (
+                    <span
+                      className={
+                        existingStatus
+                          ? "overview-counting-inactive"
+                          : "overview-counting"
+                      }
+                    >
+                      {existingStatus
+                        ? `(${countingLabel})`
+                        : countingLabel}
+                    </span>
+                  )}
                 </span>
 
               </div>

@@ -442,7 +442,7 @@ button {
 }
 
 .manual-sg-btn.active {
-  background: #7aa774;
+  background: #B1D0C1;
   color: white;
 }
 
@@ -471,8 +471,9 @@ button {
   color: black;
 }
 
-.next-btn {
-  background: #D9D9D9;
+.next-btn,
+.new-lane-btn {
+  background: #B1D0C1;
   color: black;
 }
 
@@ -687,7 +688,7 @@ button {
 .overview-actions-left {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .overview-actions-right {
@@ -713,6 +714,44 @@ button {
   flex-wrap: wrap;
 }
 
+.overview-sg-correction {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.overview-sg-correction-label {
+  flex: 0 0 auto;
+  color: #08060d;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.overview-sg-correction-buttons {
+  display: grid;
+  flex: 1 1 450px;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  gap: 8px;
+  min-width: 0;
+}
+
+.overview-sg-correction-buttons .manual-sg-btn {
+  width: auto;
+  padding: 0;
+  font-size: 14px;
+}
+
+.overview-sg-correction-buttons .manual-sg-btn:not(.active) {
+  background-color: #d3d3d3;
+}
+
+.overview-sg-correction-buttons .manual-sg-btn.active {
+  background-color: #B1D0C1;
+}
+
 .overview-toggle-active {
   background: #f2cccc;
   color: black;
@@ -724,6 +763,30 @@ button {
   gap: 20px;
 
   align-items: stretch;
+}
+
+.overview-layout-correction {
+  grid-template-rows: auto auto;
+}
+
+.overview-layout-correction > .overview-sg-correction {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.overview-layout-correction > .overview-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.overview-layout-correction > .overview-right {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.overview-layout-correction > .overview-left,
+.overview-layout-correction > .overview-right {
+  align-self: stretch;
 }
 
 .overview-left {
@@ -854,9 +917,31 @@ button {
 
 .overview-status {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  min-width: 0;
+  max-width: 100%;
   color: #9c1f1f;
-  white-space: nowrap;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.overview-status > span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.overview-counting {
+  color: #08060d;
+  font-size: 13px;
+}
+
+.overview-counting-inactive {
+  color: #777;
+  font-size: 11px;
+  text-decoration: line-through;
 }
 
 .overview-header-row span:nth-child(5) {

@@ -1,6 +1,7 @@
 export function buildExercise({
   recognizedExercise,
   sourceExercises,
+  difficultySourceExercises = sourceExercises,
   status = "valid",
 }) {
   if (!recognizedExercise) {
@@ -34,6 +35,9 @@ export function buildExercise({
     difficulty:
       recognizedExercise.difficulty,
 
+    countsAs:
+      recognizedExercise.countsAs,
+
     value:
       recognizedExercise.value,
 
@@ -41,6 +45,8 @@ export function buildExercise({
       [...groups],
 
     sourceExercises,
+
+    difficultySourceExercises,
 
     countsForDifficulty: true,
 
