@@ -105,8 +105,7 @@ export function berechneWertung(
       (u) =>
         u.status === "valid" &&
         u.countsForDifficulty !== false
-    )
-    .sort((a, b) => b.value - a.value);
+    );
 
   const difficultyValues = {
     "0": 0.0,
@@ -134,48 +133,53 @@ export function berechneWertung(
 
   const wertTeile = [];
 
-  for (const u of kandidaten) {
+  const gezeigteTeile = kandidaten
+    .flatMap((u) =>
+      getDifficultyCounting(u).map(
+        (schwierigkeit) => ({
+          u,
+          schwierigkeit,
+        })
+      )
+    )
+    .filter(({ schwierigkeit }) =>
+      downgradeOrder.includes(schwierigkeit)
+    )
+    .sort(
+      (a, b) =>
+        downgradeOrder.indexOf(a.schwierigkeit) -
+        downgradeOrder.indexOf(b.schwierigkeit)
+    );
+
+  for (const { u, schwierigkeit } of gezeigteTeile) {
     if (wertTeile.length >= 8) {
       break;
     }
 
-    for (const aktuelleSchwierigkeit of
-      getDifficultyCounting(u)) {
-      if (wertTeile.length >= 8) {
+    let index =
+      downgradeOrder.indexOf(schwierigkeit);
+
+    while (index < downgradeOrder.length) {
+      const ziel =
+        downgradeOrder[index];
+
+      if (
+        countAtOrAbove(ziel) <
+        cumulativeLimits[ziel]
+      ) {
+        difficultyCounter[ziel]++;
+
+        wertTeile.push({
+          ...u,
+          gewerteteDifficulty: ziel,
+          gewerteterWert:
+            difficultyValues[ziel],
+        });
+
         break;
       }
 
-      let index =
-        downgradeOrder.indexOf(
-          aktuelleSchwierigkeit
-        );
-
-      if (index < 0) {
-        continue;
-      }
-
-      while (index < downgradeOrder.length) {
-        const ziel =
-          downgradeOrder[index];
-
-        if (
-          countAtOrAbove(ziel) <
-          cumulativeLimits[ziel]
-        ) {
-          difficultyCounter[ziel]++;
-
-          wertTeile.push({
-            ...u,
-            gewerteteDifficulty: ziel,
-            gewerteterWert:
-              difficultyValues[ziel],
-          });
-
-          break;
-        }
-
-        index++;
-      }
+      index++;
     }
   }
 
