@@ -337,12 +337,12 @@ const sichtbareGruppen =
     for (
       let i = 0;
       i < sichtbareGruppen.length;
-      i += 3
+      i += 4
     ) {
       result.push(
         sichtbareGruppen.slice(
           i,
-          i + 3
+          i + 4
         )
       );
     }
@@ -710,65 +710,73 @@ function handleTouchEnd(e) {
         )}
       </div>
 
-      <div className="sub-tabs">
-        {unterKategorien.map(
-          (cat) => (
+      <div
+        className={`sub-navigation ${
+          gruppenSeiten.length > 1
+            ? "with-pagination"
+            : ""
+        }`}
+      >
+        <div className="sub-tabs">
+          {unterKategorien.map(
+            (cat) => (
+              <button
+                key={cat}
+                onClick={() =>
+                  setUnterReiter(cat)
+                }
+                className={`sub-tab ${
+                  cat === unterReiter
+                    ? "active"
+                    : ""
+                }`}
+              >
+                {cat}
+              </button>
+            )
+          )}
+        </div>
+        {gruppenSeiten.length > 1 && (
+          <div className="page-tabs">
+
             <button
-              key={cat}
+              className="page-arrow"
+              disabled={gruppenSeite === 1}
               onClick={() =>
-                setUnterReiter(cat)
+                setGruppenSeite(
+                  (s) => Math.max(1, s - 1)
+                )
               }
-              className={`sub-tab ${
-                cat === unterReiter
-                  ? "active"
-                  : ""
-              }`}
             >
-              {cat}
+              ◀
             </button>
-          )
+
+            <div className="page-indicator">
+              {gruppenSeite} / {gruppenSeiten.length}
+            </div>
+
+            <button
+              className="page-arrow"
+              disabled={
+                gruppenSeite ===
+                gruppenSeiten.length
+              }
+              onClick={() =>
+                setGruppenSeite(
+                  (s) =>
+                    Math.min(
+                      gruppenSeiten.length,
+                      s + 1
+                    )
+                )
+              }
+            >
+              ▶
+            </button>
+
+          </div>
         )}
       </div>
-      {gruppenSeiten.length > 1 && (
-        <div className="page-tabs">
-
-          <button
-            className="page-arrow"
-            disabled={gruppenSeite === 1}
-            onClick={() =>
-              setGruppenSeite(
-                (s) => Math.max(1, s - 1)
-              )
-            }
-          >
-            ◀
-          </button>
-
-          <div className="page-indicator">
-            {gruppenSeite} / {gruppenSeiten.length}
-          </div>
-
-          <button
-            className="page-arrow"
-            disabled={
-              gruppenSeite ===
-              gruppenSeiten.length
-            }
-            onClick={() =>
-              setGruppenSeite(
-                (s) =>
-                  Math.min(
-                    gruppenSeiten.length,
-                    s + 1
-                  )
-              )
-            }
-          >
-            ▶
-          </button>
-
-        </div>
-      )}
     <div
       className="groups-container"
       style={{

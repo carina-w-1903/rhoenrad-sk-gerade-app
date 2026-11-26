@@ -40,6 +40,11 @@ button {
   flex: 1;
   padding: 12px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .sidebar {
@@ -141,10 +146,26 @@ button {
    UNTERREITER
 ----------------------------- */
 
+.sub-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sub-navigation.with-pagination {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+}
+
 .sub-tabs {
   display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
+  min-width: 0;
+  margin-bottom: 0;
 }
 
 .sub-tab {
@@ -171,12 +192,19 @@ button {
 
 .page-tabs {
   display: flex;
+  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
 
   gap: 12px;
+  margin-bottom: 0;
+}
 
-  margin-bottom: 15px;
+.sub-navigation.with-pagination .page-tabs {
+  grid-column: 2;
+  transform: translateY(10px);
+  justify-self: center;
+  margin-top: 5px;
 }
 
 .page-indicator {
@@ -246,16 +274,22 @@ button {
 
   grid-template-columns:
     repeat(
-      3,
+      4,
       minmax(0, 1fr)
     );
 
-  gap: 20px;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
   align-items: start;
+  align-content: start;
 }
 
 .group-card {
   width: 100%;
+  height: auto;
+  max-height: 100%;
+  min-height: 0;
 
   background: white;
 
@@ -268,18 +302,20 @@ button {
   display: flex;
   flex-direction: column;
 
-  max-height: calc(100vh - 40px);
-
   overflow: hidden;
 
   box-sizing: border-box;
 }
 
 .group-content {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .group-title {
+  flex: 0 0 auto;
   text-align: center;
 
   font-weight: bold;
@@ -297,6 +333,8 @@ button {
 
 .exercise-card {
   width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 
   border: 1px solid #dbe1e8;
 
@@ -533,7 +571,37 @@ button {
   }
 
   .group-card {
-    min-width: 240px;
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .group-title {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .exercise-row {
+    min-width: 0;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .exercise-id {
+    width: auto;
+    font-size: 12px;
+  }
+
+  .exercise-name {
+    min-width: 0;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 800px) {
+  .sidebar {
+    width: 230px;
+    padding: 12px;
   }
 }
 
