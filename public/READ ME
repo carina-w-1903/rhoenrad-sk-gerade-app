@@ -1,0 +1,16 @@
+# Rhönrad Sschwierigkeiten Gerade App
+
+Webanwendung zur Unterstützung der Wertung von Schwierigkeitsübungen im Rhönradturnen (Gerade).
+
+## Funktionen
+
+- Erfassung von Übungen und Schwierigkeitsteilen
+- Automatische Berechnung des Technischen Werts
+- Berücksichtigung der Altersklassen (AK)
+- Prüfung der Strukturgruppen (SG)
+- Berücksichtigung von Höchstschwierigkeiten je Altersklasse
+- Optimiert für die Nutzung auf Tablet und Smartphone
+
+Die App dient als Hilfsmittel für Trainerinnen, Trainer und Kampfrichter zur schnellen und nachvollziehbaren Bewertung von Übungen im Bereich Gerade.
+
+Entwickelt mit React und Vite.
